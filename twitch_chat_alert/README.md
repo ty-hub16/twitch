@@ -8,7 +8,7 @@ This app connects directly to Twitch IRC and uses a Twitch user access token fro
 
 - Python 3.10+
 - Windows for audio playback (`winsound` is used for alerts)
-- A Twitch user access token with the `chat:read` scope
+- A Twitch user access token (Client Secret from dev.twitch.tv)
 
 ## Setup
 
@@ -37,26 +37,20 @@ pip install -r requirements.txt
 Copy `.env.example` to `.env` and set:
 
 - `TWITCH_CHANNEL`: your Twitch channel name in lowercase
-- `TWITCH_ACCESS_TOKEN`: a Twitch user access token from the official Twitch OAuth flow
+- `TWITCH_ACCESS_TOKEN`: your Client Secret from dev.twitch.tv
 - `LOG_LEVEL`: optional, defaults to `INFO`
-
-Important:
-
-- Do not include `oauth:` in `TWITCH_ACCESS_TOKEN`
-- The app adds the `oauth:` prefix when connecting to IRC
-- The token must include the `chat:read` scope
 
 ## Getting a Twitch Access Token
 
-Use Twitch's official developer auth flow:
-
-1. Create or use a Twitch application in the Twitch Developer Console.
-2. Request a user access token with the `chat:read` scope.
-3. Copy the returned access token into `.env` as `TWITCH_ACCESS_TOKEN`.
-
-Reference:
-
-- https://dev.twitch.tv/docs/authentication/getting-tokens-oauth/
+1. Go to https://dev.twitch.tv/
+2. Click **Create Application** > **Register Your Application**
+3. Enter your application name
+4. Set the OAuth redirect URI to `http://localhost:3000`
+5. Select **Application Integration** as the category
+6. Once created, go to **Applications** on the left sidebar
+7. Click **Manage** on your application
+8. Under the **Client ID** section, click **Generate a New Client Secret**
+9. Copy the **Client Secret** and paste it into `.env` as `TWITCH_ACCESS_TOKEN`
 
 ## Run the App
 
@@ -86,9 +80,7 @@ See [RUNNING_AS_SERVICE.md](RUNNING_AS_SERVICE.md) for Task Scheduler setup on W
 
 ### Authentication fails
 
-- Confirm the token came from Twitch's official OAuth flow
-- Confirm the token has the `chat:read` scope
-- Confirm `TWITCH_ACCESS_TOKEN` does not include `oauth:`
+- Confirm the Client Secret came from dev.twitch.tv
 - Confirm `TWITCH_CHANNEL` matches the channel name in lowercase
 
 ### No audio plays
