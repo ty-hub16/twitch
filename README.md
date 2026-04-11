@@ -4,7 +4,7 @@ A collection of helpful scripts and tools for Twitch streamers. Currently includ
 
 ## 📻 Twitch Chat Alert
 
-Real-time audio alerts when chat messages arrive. Perfect for streamers who want to stay engaged with chat without constantly watching.
+Real-time audio alerts when chat messages arrive. Perfect for streamers who want to stay engaged with chat without constantly checking if they have new chat messages.
 
 **Features:**
 - Instant audio alerts on chat messages
@@ -28,5 +28,3 @@ python main.py
 See [twitch_chat_alert/README.md](twitch_chat_alert/README.md) for detailed documentation.
 
 ---
-
-**More tools coming soon!** Have a script idea? Open an issue!
