@@ -7,8 +7,11 @@ This app connects directly to Twitch IRC and uses a Twitch user access token fro
 ## Requirements
 
 - Python 3.10+
-- Windows for audio playback (`winsound` is used for alerts)
 - A Twitch user access token (Client Secret from dev.twitch.tv)
+
+**Dependencies:**
+- `python-dotenv` - for loading environment variables
+- `playsound` - for audio playback
 
 ## Setup
 
