@@ -1,0 +1,7 @@
+{
+  "alert": {
+    "cooldown_seconds": 900,
+    "sound_file": "sounds/default_alert.mp3",
+    "ignore_own_messages": true
+  }
+}
