@@ -19,8 +19,8 @@
    - Program: Find your Python executable
      - Easiest: Run `where python` in PowerShell to find path
      - Example: `C:\Python311\python.exe`
-   - Add arguments: `-u c:\Users\Rell\scripts\twitch_chat_alert\main.py`
-   - Start in: `c:\Users\Rell\scripts\twitch_chat_alert`
+   - Add arguments: `-u main.py`
+   - Start in: `C:\path\to\twitch\twitch_chat_alert`
    - Click "Next"
 
 5. **Finish:**
@@ -39,7 +39,7 @@
 
 ### Simple Start
 ```powershell
-cd c:\Users\Rell\scripts\twitch_chat_alert
+cd C:\path\to\twitch\twitch_chat_alert
 python main.py
 ```
 
@@ -47,7 +47,7 @@ Press `Ctrl+C` to stop.
 
 ### Run in Background (PowerShell)
 ```powershell
-Start-Process python -ArgumentList "c:\Users\Rell\scripts\twitch_chat_alert\main.py" -WindowStyle Hidden
+Start-Process python -WorkingDirectory "C:\path\to\twitch\twitch_chat_alert" -ArgumentList "main.py" -WindowStyle Hidden
 ```
 
 ## Monitoring Logs
