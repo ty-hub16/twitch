@@ -14,6 +14,9 @@ This app connects directly to Twitch IRC and uses a Twitch user access token fro
 
 ### 1. Create and activate a virtual environment
 
+cd twitch_chat_alert
+
+
 #### Windows Command Prompt
 ```bat
 python -m venv venv
@@ -42,15 +45,38 @@ Copy `.env.example` to `.env` and set:
 
 ## Getting a Twitch Access Token
 
+### Step 1: Create an Application
+
 1. Go to https://dev.twitch.tv/
 2. Click **Create Application** > **Register Your Application**
 3. Enter your application name
 4. Set the OAuth redirect URI to `http://localhost:3000`
 5. Select **Application Integration** as the category
-6. Once created, go to **Applications** on the left sidebar
-7. Click **Manage** on your application
-8. Under the **Client ID** section, click **Generate a New Client Secret**
-9. Copy the **Client Secret** and paste it into `.env` as `TWITCH_ACCESS_TOKEN`
+6. Once created, go to **Applications** on the left sidebar and click **Manage**
+7. Copy your **Client ID** (you'll need this in the next step)
+
+### Step 2: Get Your User Access Token
+
+1. Take this template URL and replace `YOUR_CLIENT_ID` with your actual Client ID:
+   ```
+   https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=YOUR_CLIENT_ID&redirect_uri=http://localhost:3000&scope=chat%3Aread+chat%3Aedit
+   ```
+   
+   **Example:** If your Client ID is `exampleclientid123456789abcdef`, your URL would be:
+   ```
+   https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=exampleclientid123456789abcdef&redirect_uri=http://localhost:3000&scope=chat%3Aread+chat%3Aedit
+   ```
+
+2. Paste the full URL (with YOUR_CLIENT_ID replaced) into your web browser
+3. Click **Authorize** when prompted
+4. You may see an error page, but don't worry—**the access token is in the URL**
+5. Look at the address bar. The URL will look like:
+   ```
+   http://localhost:3000/#access_token=exampletoken123456789abcdef&scope=chat%3Aread+chat%3Aedit&token_type=bearer
+   ```
+6. Copy the token value (the long string after `access_token=` and before `&scope`)
+   - In the example above, the token is: `exampletoken123456789abcdef`
+7. Paste it into `.env` as `TWITCH_ACCESS_TOKEN`
 
 ## Run the App
 
@@ -64,9 +90,14 @@ When connected successfully, the app joins `#TWITCH_CHANNEL`, logs incoming mess
 
 Settings in `config.json`:
 
-- `alert.cooldown_seconds`: minimum time between sound alerts
+- `alert.cooldown_seconds`: minimum time between sound alerts (in seconds; set to 0 for testing)
 - `alert.sound_file`: relative path to the alert sound file
 - `alert.ignore_own_messages`: ignore messages sent by the configured channel account
+- `alert.ignore_bots`: ignore messages from bot accounts (filters usernames containing "bot" or "stream")
+
+**Testing vs Production:**
+- **For testing**: Set `cooldown_seconds: 0` and `ignore_own_messages: false`
+- **For production**: Set `ignore_own_messages: true` and `ignore_bots: true`
 
 Default sound file:
 

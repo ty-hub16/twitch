@@ -1,1 +1,2 @@
 python-dotenv==1.0.0
+playsound==1.2.2

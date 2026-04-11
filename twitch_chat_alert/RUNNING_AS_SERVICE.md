@@ -69,6 +69,16 @@ Get-Content logs/twitch_alert.log -Tail 20 -Wait
 - Test sound manually: `python -c "import winsound; winsound.PlaySound('sounds/default_alert.mp3', winsound.SND_FILENAME)"`
 
 **Not receiving messages:**
-- Verify `TWITCH_ACCESS_TOKEN` in `.env` is your Client Secret from dev.twitch.tv
+- Verify `TWITCH_ACCESS_TOKEN` is a valid user access token from the OAuth flow
+- To get a token, use this template (replace `YOUR_CLIENT_ID`):
+  ```
+  https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=YOUR_CLIENT_ID&redirect_uri=http://localhost:3000&scope=chat%3Aread+chat%3Aedit
+  ```
+  Example: `https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=exampleclientid123456789abcdef&redirect_uri=http://localhost:3000&scope=chat%3Aread+chat%3Aedit`
+- After clicking Authorize, you may see an error page, but check the address bar for the token:
+  ```
+  http://localhost:3000/#access_token=exampletoken123456789abcdef&scope=chat%3Aread+chat%3Aedit&token_type=bearer
+  ```
+  Copy the token value (after `access_token=` and before `&scope`)
 - Ensure channel name in `.env` is correct and lowercase
 - Check logs for connection errors: `type logs\twitch_alert.log`

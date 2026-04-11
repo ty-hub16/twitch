@@ -9,7 +9,7 @@ import logging
 import json
 from pathlib import Path
 from dotenv import load_dotenv
-import winsound
+from playsound import playsound
 import time
 
 # Add src to path for imports
@@ -143,6 +143,12 @@ class TwitchAlertService:
             logger.debug(f"Ignoring own message: {author}")
             return
         
+        # Check if we should ignore bots
+        ignore_bots = self._get_config("alert.ignore_bots", True)
+        if ignore_bots and ("bot" in author.lower() or "stream" in author.lower()):
+            logger.debug(f"Ignoring bot message: {author}")
+            return
+        
         # Get cooldown from config
         cooldown = self._get_config("alert.cooldown_seconds", 900)
         
@@ -160,23 +166,24 @@ class TwitchAlertService:
         self.last_alert_time = current_time
         
     def _play_alert(self):
-        """Play audio alert"""
+        """Play audio alert using playsound"""
         sound_file = self._get_config("alert.sound_file", "sounds/default_alert.mp3")
-        sound_path = Path(__file__).parent / sound_file
+        sound_path = (Path(__file__).parent / sound_file).resolve()
+        
+        logger.info(f"🔊 Attempting to play sound from: {sound_path}")
+        logger.info(f"   File exists: {sound_path.exists()}")
+        logger.info(f"   File size: {sound_path.stat().st_size if sound_path.exists() else 'N/A'} bytes")
         
         if not sound_path.exists():
-            logger.debug(f"Sound file not available: {sound_path}")
+            logger.warning(f"⚠ Sound file not found: {sound_path}")
             return
             
         try:
-            # Use winsound for async playback
-            winsound.PlaySound(
-                str(sound_path),
-                winsound.SND_FILENAME | winsound.SND_ASYNC
-            )
-            logger.debug("✓ Sound played")
+            # Use playsound for audio playback (handles MP3 natively)
+            playsound(str(sound_path))
+            logger.info(f"✓ Sound played successfully")
         except Exception as e:
-            logger.warning(f"Could not play sound: {e}")
+            logger.warning(f"❌ Could not play sound: {e}")
 
 
 def main():

@@ -76,7 +76,7 @@ class TwitchIRCMonitor:
             except socket.timeout:
                 logger.warning("⚠ No welcome message (continuing anyway)")
             finally:
-                self.sock.settimeout(None)  # Non-blocking for main loop
+                self.sock.settimeout(1)  # 1-second timeout for main loop (allows Ctrl+C to work)
             
             # Join channel
             self.sock.sendall(f"JOIN #{self.channel}\r\n".encode())
