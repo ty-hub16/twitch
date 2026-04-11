@@ -69,6 +69,8 @@ Get-Content logs/twitch_alert.log -Tail 20 -Wait
 - Test sound manually: `python -c "import winsound; winsound.PlaySound('sounds/default_alert.mp3', winsound.SND_FILENAME)"`
 
 **Not receiving messages:**
-- Verify OAuth token has `chat:read` scope (check at https://dev.twitch.tv)
+- Verify the token came from Twitch's official OAuth flow: https://dev.twitch.tv/docs/authentication/getting-tokens-oauth/
+- Verify the token has the `chat:read` scope
+- Verify `TWITCH_ACCESS_TOKEN` in `.env` does not include the `oauth:` prefix
 - Ensure channel name in `.env` is correct and lowercase
 - Check logs for connection errors: `type logs\twitch_alert.log`

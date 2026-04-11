@@ -18,7 +18,7 @@ Real-time audio alerts when chat messages arrive. Perfect for streamers who want
 ```bash
 cd twitch_chat_alert
 python -m venv venv
-venv/Scripts/activate  # or source venv/bin/activate on macOS/Linux
+venv\Scripts\activate  # or source venv/bin/activate on macOS/Linux
 pip install -r requirements.txt
 cp .env.example .env
 # Edit .env with your Twitch channel and OAuth token
