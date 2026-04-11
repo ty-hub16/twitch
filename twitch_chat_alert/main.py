@@ -170,10 +170,6 @@ class TwitchAlertService:
         sound_file = self._get_config("alert.sound_file", "sounds/default_alert.mp3")
         sound_path = (Path(__file__).parent / sound_file).resolve()
         
-        logger.info(f"🔊 Attempting to play sound from: {sound_path}")
-        logger.info(f"   File exists: {sound_path.exists()}")
-        logger.info(f"   File size: {sound_path.stat().st_size if sound_path.exists() else 'N/A'} bytes")
-        
         if not sound_path.exists():
             logger.warning(f"⚠ Sound file not found: {sound_path}")
             return
@@ -181,7 +177,7 @@ class TwitchAlertService:
         try:
             # Use playsound for audio playback (handles MP3 natively)
             playsound(str(sound_path))
-            logger.info(f"✓ Sound played successfully")
+            logger.info(f"✓ Sound played")
         except Exception as e:
             logger.warning(f"❌ Could not play sound: {e}")
 
