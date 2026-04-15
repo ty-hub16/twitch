@@ -1,7 +1,7 @@
 # Twitch Streamer Scripts
 
 **Skills Used:**
-JSON parsing, CSV read/write, Windows UI Automation, Date/time parsing, Deduplication, Polling loop
+OAuth 2.0 auth (Twitch API), TCP socket connection to Twitch IRC, JSON config file
 
 A collection of helpful scripts and tools for Twitch streamers. Currently includes:
 
