@@ -1,5 +1,8 @@
 # Twitch Streamer Scripts
 
+**Skills Used:**
+JSON parsing, CSV read/write, Windows UI Automation, Date/time parsing, Deduplication, Polling loop
+
 A collection of helpful scripts and tools for Twitch streamers. Currently includes:
 
 ## 📻 Twitch Chat Alert
