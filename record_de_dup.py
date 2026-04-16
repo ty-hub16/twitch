@@ -2,10 +2,19 @@ import os
 import sys
 import glob
 
+# ---------------------------------------------------------------
+# USAGE:
+#   python record_de_dup.py "C:\Users\<YourUsername>\Videos"
+#                                        ^
+#                                        Change this to your OBS recording folder.
+#                                        Find it in OBS: Settings > Output > Recording Path
+#
+# If no path is provided, defaults to C:\Users\<you>\Videos
+# ---------------------------------------------------------------
 
 def delete_mkv_files(directory):
-    pattern = os.path.join(directory, "**", "*.mkv")
-    mkv_files = glob.glob(pattern, recursive=True)
+    pattern = os.path.join(directory, "*.mkv")
+    mkv_files = glob.glob(pattern)
 
     if not mkv_files:
         print(f"No .mkv files found in: {directory}")
